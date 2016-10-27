@@ -14,7 +14,11 @@ public class Main {
             usage();
         }
         if("client".equalsIgnoreCase(args[0])) {
-            runClient();
+            if(args.length == 1) {
+                usage();
+            } else {
+                runClient(args[1]);
+            }
         } else if("server".equalsIgnoreCase(args[0])) {
             runServer();
         } else {
@@ -22,9 +26,9 @@ public class Main {
         }
     }
 
-    private static void runClient() {
+    private static void runClient(String address) {
         ActorSystem serverSystem = ActorSystem.create("ClientSystem", ConfigFactory.load("client"));
-        ActorRef peopleActor = serverSystem.actorOf(Props.create(PeopleActor.class), "peopleActor");
+        ActorRef peopleActor = serverSystem.actorOf(Props.create(PeopleActor.class, address), "peopleActor");
         while (true) {
             String line = System.console().readLine();
             peopleActor.tell(line, ActorRef.noSender());
@@ -38,6 +42,6 @@ public class Main {
 
     private static void usage() {
         System.out.println("Usage: \n" +
-                "<cmd> <[client|server]>");
+                "<cmd> <[client <address>|server]>");
     }
 }

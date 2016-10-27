@@ -10,7 +10,13 @@ import akka.event.LoggingAdapter;
  */
 public class PeopleActor extends UntypedActor {
     LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-    ActorSelection greetingActor = getContext().actorSelection("akka.tcp://ServerSystem@192.168.0.78:2552/user/greetingActor");
+    ActorSelection greetingActor = null;
+
+    public PeopleActor(String address) {
+        this.greetingActor = getContext().actorSelection("akka.tcp://ServerSystem@"
+            + address + ":2552/user/greetingActor");
+    }
+
     @Override
     public void onReceive(Object o) throws Throwable {
         log.info("From [{}]: [{}]", getSender().path().name(), o.toString());
