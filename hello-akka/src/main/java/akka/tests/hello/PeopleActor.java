@@ -9,8 +9,9 @@ import akka.event.LoggingAdapter;
  */
 public class PeopleActor extends UntypedActor {
     LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+
     @Override
     public void onReceive(Object o) throws Throwable {
-        log.info("from {}: {}", getSender().path().name(), o.toString());
+        log.info("From [{}]: [{}]", getSender().path().name(), o.toString());
     }
 }
