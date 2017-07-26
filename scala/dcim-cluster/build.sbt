@@ -44,7 +44,7 @@ libraryDependencies ++= {
   )
 }
 
-mainClass in assembly := Some("com.wincom.dcim.SharedMain")
+mainClass in assembly := Some("com.wincom.dcim.sharded.Main")
 assemblyJarName in assembly := "dcim-cluster.jar"
 
 

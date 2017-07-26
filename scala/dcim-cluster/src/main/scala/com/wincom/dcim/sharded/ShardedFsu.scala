@@ -5,6 +5,7 @@ import akka.actor.ReceiveTimeout
 import akka.actor.actorRef2Scala
 import akka.cluster.sharding.ShardRegion
 import akka.cluster.sharding.ShardRegion.Passivate
+import com.wincom.dcim.rest.Settings
 
 object ShardedFsu {
   def props = Props(new ShardedFsu)
@@ -15,15 +16,15 @@ object ShardedFsu {
   val shardName: String = "fsus"
 
   val extractEntityId: ShardRegion.ExtractEntityId = {
-    case cmd: Fsu.Command => (cmd.fsuId.toString, cmd)
+    case cmd: FsuActor.Command => (cmd.fsuId.toString, cmd)
   }
 
   val extractShardId: ShardRegion.ExtractShardId = {
-    case cmd: Fsu.Command => (cmd.fsuId % 100).toString()
+    case cmd: FsuActor.Command => (cmd.fsuId % 100).toString()
   }
 }
 
-class ShardedFsu extends Fsu {
+class ShardedFsu extends FsuActor {
   context.setReceiveTimeout(Settings(context.system).passivateTimeout)
 
   override def unhandled(msg: Any) = msg match {

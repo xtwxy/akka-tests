@@ -1,9 +1,7 @@
-package com.wincom.dcim.sharded
+package com.wincom.dcim.rest
 
 import scala.concurrent.duration.Duration
-
 import com.typesafe.config.Config
-
 import akka.actor.ExtendedActorSystem
 import akka.actor.Extension
 import akka.actor.ExtensionKey
@@ -17,6 +15,6 @@ class Settings(config: Config) extends Extension {
 
   object http {
     val host = config.getString("http.host")
-    val port = config.getString("http.port")
+    val port = config.getInt("http.port")
   }
 }

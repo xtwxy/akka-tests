@@ -4,6 +4,7 @@ import akka.actor.Actor
 import akka.actor.Props
 import akka.cluster.sharding.ClusterSharding
 import akka.cluster.sharding.ClusterShardingSettings
+import akka.event.Logging
 
 object ShardedFsus {
   def props = Props(new ShardedFsus)
@@ -18,7 +19,9 @@ class ShardedFsus extends Actor {
     ShardedFsu.extractEntityId,
     ShardedFsu.extractShardId)
 
+  val log = Logging(context.system.eventStream, "fsus")
+  
   def receive = {
-    case _ => {}
+    case x => { log.info("{}", x) }
   }
 }
