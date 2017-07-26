@@ -44,7 +44,7 @@ libraryDependencies ++= {
   )
 }
 
-mainClass in assembly := Some("com.wincom.http.Main")
+mainClass in assembly := Some("com.wincom.http.WebServer3")
 assemblyJarName in assembly := "akka-http-test.jar"
 
 
