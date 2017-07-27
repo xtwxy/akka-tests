@@ -13,7 +13,7 @@ object ShardedFsu {
 
   case object StopFsu
 
-  val shardName: String = "fsus"
+  val shardName: String = "sharded-fsus"
 
   val extractEntityId: ShardRegion.ExtractEntityId = {
     case cmd: FsuActor.Command => (cmd.fsuId.toString, cmd)

@@ -14,7 +14,7 @@ import akka.actor.ActorRef
 
 
 trait WebServer extends RequestTimeout {
-  def startService(shoppers: ActorRef)(implicit system: ActorSystem) = {
+  def startService(shardedFsus: ActorRef)(implicit system: ActorSystem) = {
     val config = system.settings.config
     val settings = Settings(system)
     val host = settings.http.host
@@ -22,15 +22,15 @@ trait WebServer extends RequestTimeout {
 
     implicit val ec = system.dispatcher
 
-    val api = new FsuService(shoppers, system, requestTimeout(config)).routes
+    val api = new FsuService(shardedFsus, system, requestTimeout(config)).routes
  
     implicit val materializer = ActorMaterializer()
     val bindingFuture: Future[ServerBinding] =
       Http().bindAndHandle(api, host, port)
    
-    val log =  Logging(system.eventStream, "fsus")
+    val log =  Logging(system.eventStream, "sharded-fsus")
     bindingFuture.map { serverBinding =>
-      log.info(s"Shoppers API bound to ${serverBinding.localAddress} ")
+      log.info(s"Sharded FSU API bound to ${serverBinding.localAddress} ")
     }.onFailure { 
       case ex: Exception =>
         log.error(ex, "Failed to bind to {}:{}!", host, port)

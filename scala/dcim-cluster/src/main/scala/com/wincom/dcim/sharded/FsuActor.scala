@@ -18,8 +18,10 @@ object FsuActor {
 class FsuActor extends Actor {
   def fsuId = self.path.name.toLong
 
-  val log = Logging(context.system.eventStream, "fsus")
+  val log = Logging(context.system.eventStream, "sharded-fsus")
   def receive = {
-    case x => { log.info("{}", x) }
+    case x => {
+      log.info("RECV: {} {}", this, x)
+    }
   }
 }

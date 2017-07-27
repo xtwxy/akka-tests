@@ -19,9 +19,14 @@ class ShardedFsus extends Actor {
     ShardedFsu.extractEntityId,
     ShardedFsu.extractShardId)
 
-  val log = Logging(context.system.eventStream, "fsus")
-  
+  val log = Logging(context.system.eventStream, "sharded-fsus")
+  def shardedFsu = {
+    ClusterSharding(context.system).shardRegion(ShardedFsu.shardName)
+  }
   def receive = {
-    case x => { log.info("{}", x) }
+    case x => {
+      log.info("{}: forwarding message '{}' to {}", this, x, shardedFsu)
+      shardedFsu forward(x)
+    }
   }
 }

@@ -34,7 +34,7 @@ trait FsuRoutes extends DefaultJsonProtocol {
   implicit val fsuFormat = jsonFormat2(Fsu)
   implicit val fsusFormat = jsonFormat1(Fsus)
 
-  def fsuIdSegment = Segment.flatMap(id => Try(id.toLong).toOption)
+  def fsuIdSegment = Segment.flatMap(id => Try(id.toInt).toOption)
 
   def fsuShard: ActorRef
   implicit def requestTimeout: Timeout
@@ -62,7 +62,7 @@ trait FsuRoutes extends DefaultJsonProtocol {
     pathPrefix("fsu" / fsuIdSegment /) { fsuId =>
       get {
         pathEnd {
-          fsuShard ! fsuId
+          fsuShard ! FsuActor.CreateFsu(fsuId, "Wangxy")
           complete(OK)
         }
       } ~
