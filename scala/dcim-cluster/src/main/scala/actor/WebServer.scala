@@ -18,7 +18,7 @@ import akka.http.scaladsl.server.RouteResult.route2HandlerFlow
 import akka.stream.ActorMaterializer
 
 object WebServer {
-  def main(args: Array[String]) {
+  def main_(args: Array[String]) {
 
     implicit val seedConfig = ConfigFactory.load("dcim-cluster")
     implicit val seedSystem = ActorSystem("dcim", seedConfig)
