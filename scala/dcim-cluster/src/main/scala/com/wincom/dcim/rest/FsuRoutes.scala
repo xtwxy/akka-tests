@@ -21,6 +21,7 @@ import akka.actor._
 import akka.pattern.ask
 import scala.concurrent.ExecutionContext
 import com.wincom.dcim.sharded.FsuActor
+import com.wincom.dcim.sharded.FsuActor._
 
 
 
@@ -29,8 +30,6 @@ class FsuService(val fsuShard: ActorRef, val system: ActorSystem, val requestTim
 }
 
 trait FsuRoutes extends DefaultJsonProtocol {
-  case class Fsu(id: Int, name: String)
-  case class Fsus(fsus: List[Fsu])
   implicit val fsuFormat = jsonFormat2(Fsu)
   implicit val fsusFormat = jsonFormat1(Fsus)
 
@@ -49,7 +48,7 @@ trait FsuRoutes extends DefaultJsonProtocol {
       post {
         pathEnd {
           entity(as[Fsu]) { fsu =>
-            onSuccess(fsuShard.ask(FsuActor.CreateFsu(fsu.id, fsu.name)).mapTo[FsuActor.Command]) {
+            onSuccess(fsuShard.ask(CreateFsu(fsu.id, fsu.name)).mapTo[Command]) {
               case _ => complete(OK)
             }
           }
@@ -62,7 +61,7 @@ trait FsuRoutes extends DefaultJsonProtocol {
     pathPrefix("fsu" / fsuIdSegment /) { fsuId =>
       get {
         pathEnd {
-          fsuShard ! FsuActor.CreateFsu(fsuId, "Wangxy")
+          fsuShard ! CreateFsu(fsuId, "Wangxy")
           complete(OK)
         }
       } ~
