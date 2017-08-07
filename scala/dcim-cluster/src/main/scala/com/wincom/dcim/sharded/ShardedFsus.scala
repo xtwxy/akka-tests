@@ -19,7 +19,10 @@ object ShardedFsus {
 
 class ShardedFsus extends PersistentActor {
 
-  context.setReceiveTimeout(Settings(context.system).passivateTimeout)
+  val settings = Settings(context.system)
+  context.setReceiveTimeout(settings.passivateTimeout)
+  FsuActor.numberOfShards = settings.numberOfShards
+
   val log = Logging(context.system.eventStream, "sharded-fsus")
 
   ClusterSharding(context.system).start(

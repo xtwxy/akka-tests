@@ -13,7 +13,7 @@ import org.joda.time.DateTime
 object FsuActor {
   def props(fsuId: Int) = Props(new FsuActor)
   def name(fsuId: Int) = fsuId.toString()
-
+  var numberOfShards = 100
   case class Fsu(id: Int, name: String)
   case class Fsus(fsus: List[Fsu])
 
@@ -31,7 +31,7 @@ object FsuActor {
   }
 
   val extractShardId: ShardRegion.ExtractShardId = {
-    case cmd: Command => (cmd.fsuId % 100).toString()
+    case cmd: Command => (cmd.fsuId % numberOfShards).toString()
   }
 }
 
