@@ -11,7 +11,7 @@ import java.util.{ Calendar, Date }
 import org.joda.time.DateTime
 
 object FsuActor {
-  def props(fsuId: Int) = Props(new FsuActor)
+  def props(fsuId: Int) = Props(new FsuActor(fsuId))
   def name(fsuId: Int) = fsuId.toString()
   var numberOfShards = 100
   case class Fsu(id: Int, name: String)
@@ -35,10 +35,9 @@ object FsuActor {
   }
 }
 
-class FsuActor extends PersistentActor {
+class FsuActor(val fsuId: Int) extends PersistentActor {
   override def persistenceId: String = s"${self.path.name}"
 
-  var fsuId: Int = 0
   var fsuName: String = null
   var isDirty: Boolean = true
 
@@ -50,7 +49,6 @@ class FsuActor extends PersistentActor {
     case cmd: CreateFsu =>
       updateState(cmd)
     case SnapshotOffer(_, Fsu(fsuId, name)) =>
-      this.fsuId = fsuId
       this.fsuName = name
     case x => log.info("RECOVER: {} {}", this, x)
   }
@@ -74,12 +72,6 @@ class FsuActor extends PersistentActor {
   private def updateState: (Command => Unit) = {
     case CreateFsu(fsuId, name) =>
       log.info("UPDATE: persistenceId = {} fsuId = {} name = {}", persistenceId, fsuId, name)
-      if (this.fsuId == 0) {
-        this.fsuId = fsuId
-        this.fsuName = name
-        log.info("UPDATE APPLIED: persistenceId = {} fsuId = {} name = {}", persistenceId, fsuId, name)
-      } else {
-        log.info("UPDATE IGNORED: using existing persistenceId = {} fsuId = {} name = {}", persistenceId, this.fsuId, this.fsuName)
-      }
+      this.fsuName = name
   }
 }
