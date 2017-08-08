@@ -1,16 +1,14 @@
 package com.wincom.dcim.rest
 
-import akka.http.scaladsl.server.Route
-import akka.actor.ActorSystem
-import akka.actor.Actor
-import akka.http.scaladsl.Http
-import akka.stream.ActorMaterializer
-import akka.http.scaladsl.Http.ServerBinding
-import scala.concurrent.Future
-import com.typesafe.config.Config
-import akka.util.Timeout
+import akka.actor.{ActorRef, ActorSystem}
 import akka.event.Logging
-import akka.actor.ActorRef
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.Http.ServerBinding
+import akka.stream.ActorMaterializer
+import akka.util.Timeout
+import com.typesafe.config.Config
+
+import scala.concurrent.Future
 
 
 trait WebServer extends RequestTimeout {
@@ -23,15 +21,15 @@ trait WebServer extends RequestTimeout {
     implicit val ec = system.dispatcher
 
     val api = new FsuService(shardedFsus, system, requestTimeout(config)).routes
- 
+
     implicit val materializer = ActorMaterializer()
     val bindingFuture: Future[ServerBinding] =
       Http().bindAndHandle(api, host, port)
-   
-    val log =  Logging(system.eventStream, "sharded-fsus")
+
+    val log = Logging(system.eventStream, "sharded-fsus")
     bindingFuture.map { serverBinding =>
       log.info(s"Sharded FSU API bound to ${serverBinding.localAddress} ")
-    }.onFailure { 
+    }.onFailure {
       case ex: Exception =>
         log.error(ex, "Failed to bind to {}:{}!", host, port)
         system.terminate()
@@ -41,7 +39,9 @@ trait WebServer extends RequestTimeout {
 }
 
 trait RequestTimeout {
+
   import scala.concurrent.duration._
+
   def requestTimeout(config: Config): Timeout = {
     val t = config.getString("akka.http.server.request-timeout")
     val d = Duration(t)

@@ -15,11 +15,17 @@ import scala.concurrent.duration.{FiniteDuration, MINUTES}
 import scala.util.Success
 
 object SignalActor {
+  val numberOfShards = 100
+  val extractEntityId: ShardRegion.ExtractEntityId = {
+    case cmd: Command => (cmd.signalId.toString, cmd)
+  }
+  val extractShardId: ShardRegion.ExtractShardId = {
+    case cmd: Command => (cmd.signalId % numberOfShards).toString()
+  }
+
   def props(signalId: Int, driverShard: ActorRef) = Props(new SignalActor(signalId, driverShard))
 
   def name(signalId: Int) = signalId.toString()
-
-  val numberOfShards = 100
 
   trait Command {
     def signalId: Int
@@ -62,27 +68,20 @@ object SignalActor {
   final case class RenameSignalEvt(newName: String) extends Event
 
   final case class SelectDriverEvt(driverId: Int) extends Event
-
-  val extractEntityId: ShardRegion.ExtractEntityId = {
-    case cmd: Command => (cmd.signalId.toString, cmd)
-  }
-
-  val extractShardId: ShardRegion.ExtractShardId = {
-    case cmd: Command => (cmd.signalId % numberOfShards).toString()
-  }
 }
 
 class SignalActor(val signalId: Int, driverShard: ActorRef) extends PersistentActor {
-  override def persistenceId: String = s"${self.path.name}"
 
+  val log = Logging(context.system.eventStream, "sharded-fsus")
   var driverId: Option[Int] = None
   var signalName: Option[String] = None
   var valueTs: Option[DateTime] = None
   var signalValue: AnyVal = 0
 
-  val log = Logging(context.system.eventStream, "sharded-fsus")
+  override def persistenceId: String = s"${self.path.name}"
 
   implicit def requestTimeout: Timeout = FiniteDuration(20, MINUTES)
+
   implicit def executionContext: ExecutionContext = context.dispatcher
 
   def receiveRecover = {
@@ -116,9 +115,9 @@ class SignalActor(val signalId: Int, driverShard: ActorRef) extends PersistentAc
         driverShard.ask(cmd).mapTo[Command].onComplete {
           case f: Success[Command] =>
             f.value match {
-              case s: SignalValue =>
-                valueTs = Some(s.ts)
-                signalValue = s.value
+              case s@SignalValue(_, ts, value) =>
+                valueTs = Some(ts)
+                signalValue = value
                 sender() ! s
               case _ =>
                 sender() ! NotAvailable(signalId)

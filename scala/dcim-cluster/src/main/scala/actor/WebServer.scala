@@ -1,21 +1,16 @@
 package actor
 
-import scala.io.StdIn
-
-import com.typesafe.config.ConfigFactory
-
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.marshalling.ToResponseMarshallable.apply
-import akka.http.scaladsl.model.ContentTypes
-import akka.http.scaladsl.model.HttpEntity
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directive.addByNameNullaryApply
-import akka.http.scaladsl.server.Directives._segmentStringToPathMatcher
-import akka.http.scaladsl.server.Directives.complete
-import akka.http.scaladsl.server.Directives.get
-import akka.http.scaladsl.server.Directives.path
+import akka.http.scaladsl.server.Directives.{_segmentStringToPathMatcher, complete, get, path}
 import akka.http.scaladsl.server.RouteResult.route2HandlerFlow
 import akka.stream.ActorMaterializer
+import com.typesafe.config.ConfigFactory
+
+import scala.io.StdIn
 
 object WebServer {
   def main_(args: Array[String]) {

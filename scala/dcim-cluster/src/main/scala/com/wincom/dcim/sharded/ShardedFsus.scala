@@ -1,15 +1,13 @@
 package com.wincom.dcim.sharded
 
-import akka.actor.Props
-import akka.cluster.sharding.{ ClusterSharding, ClusterShardingSettings }
+import akka.actor.{Props, ReceiveTimeout}
+import akka.cluster.sharding.{ClusterSharding, ClusterShardingSettings}
 import akka.event.Logging
-import akka.persistence.{ PersistentActor, SnapshotOffer }
+import akka.persistence.{PersistentActor, SnapshotOffer}
+import com.wincom.dcim.rest.Settings
 import com.wincom.dcim.sharded.FsuActor._
 
 import scala.collection.immutable.Set
-import com.wincom.dcim.rest.Settings
-import akka.actor.ReceiveTimeout
-import org.joda.time.DateTime
 
 object ShardedFsus {
   def props = Props(new ShardedFsus)
@@ -31,15 +29,13 @@ class ShardedFsus extends PersistentActor {
     ClusterShardingSettings(context.system),
     FsuActor.extractEntityId,
     FsuActor.extractShardId)
-
-  case class FsuIds(ids: Set[Int])
   var config = Set[Int]()
   var isDirty = false
 
   override def persistenceId: String = s"${self.path.name}"
 
   def receiveRecover = {
-    case cmd @ CreateFsu(fsuId, fsuName) =>
+    case cmd@CreateFsu(fsuId, fsuName) =>
       updateState(cmd)
       shardedFsu ! Ping(fsuId)
     case SnapshotOffer(_, FsuIds(ids)) =>
@@ -49,7 +45,7 @@ class ShardedFsus extends PersistentActor {
   }
 
   def receiveCommand = {
-    case cmd @ CreateFsu(fsuId, fsuName) =>
+    case cmd@CreateFsu(fsuId, fsuName) =>
       persist(cmd)(updateState)
       isDirty = true
       shardedFsu forward cmd
@@ -75,8 +71,10 @@ class ShardedFsus extends PersistentActor {
 
   private def updateState: (Command => Unit) = {
     case CreateFsu(fsuId, fsuName) =>
-      if(!config(fsuId)) {
+      if (!config(fsuId)) {
         config += fsuId
       }
   }
+
+  case class FsuIds(ids: Set[Int])
 }

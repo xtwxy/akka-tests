@@ -30,11 +30,12 @@ object DeviceActor {
 
   /* domain object */
   final case class Device(deviceId: Int, deviceType: Int, name: String, signals: Set[Int])
-  final case object NoSuchDevice
 
   /* commands */
   final case class CreateDeviceCmd(deviceId: Int, deviceType: Int, name: String, signals: Set[Int]) extends Command
+
   final case class GetDeviceCmd(deviceId: Int) extends Command
+
   final case class GetSignalValuesCmd(deviceId: Int, signals: Set[Int]) extends Command
 
   final case class RenameDeviceCmd(deviceId: Int, newName: String) extends Command
@@ -62,6 +63,8 @@ object DeviceActor {
 
   final case class RemoveSignalsEvt(deviceId: Int, signals: Set[Int]) extends Event
 
+  final case object NoSuchDevice
+
 }
 
 class DeviceActor(val deviceId: Int, val signalShard: ActorRef) extends PersistentActor {
@@ -88,7 +91,7 @@ class DeviceActor(val deviceId: Int, val signalShard: ActorRef) extends Persiste
     case CreateDeviceCmd(deviceId, deviceType, deviceName, signalIds) =>
       persist(CreateDeviceEvt(deviceId, deviceType, deviceName, signalIds))(updateState)
     case GetDeviceCmd =>
-      if(valid) {
+      if (valid) {
         sender() ! Device(deviceId, deviceType.get, deviceName.get, signals)
       } else {
         sender() ! NoSuchDevice

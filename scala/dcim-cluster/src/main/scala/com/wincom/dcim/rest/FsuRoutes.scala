@@ -14,7 +14,6 @@ import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 
-
 class FsuService(val fsuShard: ActorRef, val system: ActorSystem, val requestTimeout: Timeout) extends FsuRoutes {
   val executionContext = system.dispatcher
 }
@@ -23,15 +22,14 @@ trait FsuRoutes extends DefaultJsonProtocol {
   implicit val fsuFormat = jsonFormat2(Fsu)
   implicit val fsusFormat = jsonFormat1(Fsus)
 
-  def fsuIdSegment = Segment.flatMap(id => Try(id.toInt).toOption)
-
   def fsuShard: ActorRef
-  implicit def requestTimeout: Timeout
-  implicit def executionContext: ExecutionContext
-
 
   def routes: Route =
     create ~ update
+
+  implicit def requestTimeout: Timeout
+
+  implicit def executionContext: ExecutionContext
 
   def create = {
     path("fsu") {
@@ -46,7 +44,7 @@ trait FsuRoutes extends DefaultJsonProtocol {
       }
     }
   }
-  
+
   def update =
     pathPrefix("fsu" / fsuIdSegment /) { fsuId =>
       get {
@@ -55,11 +53,13 @@ trait FsuRoutes extends DefaultJsonProtocol {
           complete(OK)
         }
       } ~
-      put {
-        complete(OK)
-      } ~
-      delete {
-        complete(OK)
-      }
+        put {
+          complete(OK)
+        } ~
+        delete {
+          complete(OK)
+        }
     }
+
+  def fsuIdSegment = Segment.flatMap(id => Try(id.toInt).toOption)
 }

@@ -3,8 +3,8 @@ package actor
 /**
   * Created by wangxy on 17-7-24.
   */
+
 import akka.actor.Actor
-import akka.actor.Props
 import akka.event.Logging
 
 class MyActor extends Actor {
@@ -12,6 +12,6 @@ class MyActor extends Actor {
 
   def receive = {
     case "test" => log.info("received test")
-    case _      => log.info("received unknown message")
+    case _ => log.info("received unknown message")
   }
 }
