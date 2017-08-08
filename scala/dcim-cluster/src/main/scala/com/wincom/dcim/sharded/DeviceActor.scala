@@ -1,6 +1,6 @@
 package com.wincom.dcim.sharded
 
-import akka.actor.Props
+import akka.actor.{ActorRef, Props}
 import akka.cluster.sharding.ShardRegion
 import akka.event.Logging
 import akka.persistence.{PersistentActor, SnapshotOffer}
@@ -16,7 +16,7 @@ object DeviceActor {
     case cmd: Command => (cmd.deviceId % numberOfShards).toString()
   }
 
-  def props(deviceId: Int) = Props(new DeviceActor(deviceId))
+  def props(deviceId: Int, signalShard: ActorRef) = Props(new DeviceActor(deviceId, signalShard))
 
   def name(deviceId: Int) = deviceId.toString()
 
@@ -35,6 +35,7 @@ object DeviceActor {
   /* commands */
   final case class CreateDeviceCmd(deviceId: Int, deviceType: Int, name: String, signals: Set[Int]) extends Command
   final case class GetDeviceCmd(deviceId: Int) extends Command
+  final case class GetSignalValuesCmd(deviceId: Int, signals: Set[Int]) extends Command
 
   final case class RenameDeviceCmd(deviceId: Int, newName: String) extends Command
 
@@ -63,8 +64,8 @@ object DeviceActor {
 
 }
 
-class DeviceActor(val deviceId: Int) extends PersistentActor {
-  val log = Logging(context.system.eventStream, "sharded-fsus")
+class DeviceActor(val deviceId: Int, val signalShard: ActorRef) extends PersistentActor {
+  val log = Logging(context.system.eventStream, "sharded-devices")
   var deviceType: Option[Int] = None
   var deviceName: Option[String] = None
   var signals: Set[Int] = Set()
@@ -74,9 +75,7 @@ class DeviceActor(val deviceId: Int) extends PersistentActor {
   context.setReceiveTimeout(Settings(context.system).passivateTimeout)
 
   def receiveRecover = {
-    case evt: CreateDeviceEvt =>
-      updateState(evt)
-    case evt: RenameDeviceEvt =>
+    case evt: Event =>
       updateState(evt)
     case SnapshotOffer(_, Device(deviceId, deviceType, deviceName, signals)) =>
       this.deviceType = Some(deviceType)
@@ -94,6 +93,8 @@ class DeviceActor(val deviceId: Int) extends PersistentActor {
       } else {
         sender() ! NoSuchDevice
       }
+    case GetSignalValuesCmd(_, signals) =>
+      signals.foreach(s => signalShard forward s)
     case RenameDeviceCmd(deviceId, newName) =>
       persist(RenameDeviceEvt(deviceId, newName))(updateState)
     case AddSignalCmd(deviceId, signalId) =>

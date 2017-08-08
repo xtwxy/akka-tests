@@ -1,27 +1,17 @@
 package com.wincom.dcim.rest
 
-import akka.actor.ActorSystem
-import akka.http.scaladsl.Http
-import akka.stream.ActorMaterializer
-import akka.Done
-import akka.http.scaladsl.server.Route
-import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.model.StatusCodes._
+import akka.actor.{ActorSystem, _}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-import spray.json.DefaultJsonProtocol._
-
-import scala.io.StdIn
-
-import scala.concurrent.Future
-import spray.json.DefaultJsonProtocol
-import scala.util.Try
-import akka.util.Timeout
-import akka.actor._
+import akka.http.scaladsl.model.StatusCodes._
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Route
 import akka.pattern.ask
-import scala.concurrent.ExecutionContext
-import com.wincom.dcim.sharded.FsuActor
+import akka.util.Timeout
 import com.wincom.dcim.sharded.FsuActor._
+import spray.json.DefaultJsonProtocol
+
+import scala.concurrent.ExecutionContext
+import scala.util.Try
 
 
 
