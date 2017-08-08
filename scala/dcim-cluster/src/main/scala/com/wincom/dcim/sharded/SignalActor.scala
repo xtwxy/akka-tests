@@ -11,7 +11,7 @@ import com.wincom.dcim.sharded.SignalActor._
 import org.joda.time.Duration
 
 import scala.concurrent.ExecutionContext
-import scala.concurrent.duration.{FiniteDuration, MINUTES}
+import scala.concurrent.duration.{FiniteDuration, SECONDS}
 import scala.util.Success
 
 object SignalActor {
@@ -80,7 +80,7 @@ class SignalActor(val signalId: Int, driverShard: ActorRef) extends PersistentAc
 
   override def persistenceId: String = s"${self.path.name}"
 
-  implicit def requestTimeout: Timeout = FiniteDuration(20, MINUTES)
+  implicit def requestTimeout: Timeout = FiniteDuration(20, SECONDS)
 
   implicit def executionContext: ExecutionContext = context.dispatcher
 
