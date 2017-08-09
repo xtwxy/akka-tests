@@ -31,6 +31,8 @@
     </dependencies>
 
     <modules>
+        <module>driver</module>
+        <module>driver-mock1</module>
         <module>hello-akka</module>
         <module>remote-actor</module>
     </modules>
@@ -38,6 +40,8 @@
         <java.source.version>1.8</java.source.version>
         <java.class.version>1.8</java.class.version>
         <source.encoding>UTF-8</source.encoding>
+        <akka.version>2.5.1</akka.version>
+        <reflections.version>0.9.11</reflections.version>
         <junit.version>4.12</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
