@@ -1,4 +1,4 @@
-package shape
+package com.wincom.shape
 
 /**
   * Created by wangxy on 17-8-2.

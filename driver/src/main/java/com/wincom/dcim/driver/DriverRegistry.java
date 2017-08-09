@@ -17,7 +17,7 @@ public class DriverRegistry {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private Map<String, DriverFactory> factories;
 
-	private DriverRegistry() {
+	public DriverRegistry() {
 		this.factories = new TreeMap<>();
 	}
 

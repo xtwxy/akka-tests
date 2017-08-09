@@ -61,6 +61,7 @@
         <repository.releases.url>http://192.168.0.161:8081/nexus/content/repositories/releases</repository.releases.url>
         <repository.Snapshots.url>http://192.168.0.161:8081/nexus/content/repositories/snapshots
         </repository.Snapshots.url>
+        <repository.local.url>file:///home/wangxy/.m2/repository</repository.local.url>
     </properties>
 
     <build>
@@ -120,7 +121,7 @@
         <snapshotRepository>
             <id>Snapshots</id>
             <name>RepositoryProxy</name>
-            <url>${repository.Snapshots.url}</url>
+            <url>${repository.local.url}</url>
         </snapshotRepository>
     </distributionManagement>
 

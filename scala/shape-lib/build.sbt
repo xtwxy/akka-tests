@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
     name := "shape-lib",
     organization := "shape-lib",
     version := "1.0",
-    scalaVersion := "2.12.2"
+    scalaVersion := "2.11.8"
   )
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
@@ -20,6 +20,7 @@ fork := true
 libraryDependencies ++= {
   val akkaVersion = "2.5.1"
   Seq(
+    "com.wincom.dcim.driver"     %  "driver"                              % "1.0-SNAPSHOT",
     "org.scalatest"             %%  "scalatest"                           % "3.0.0"       % "test"
   )
 }
