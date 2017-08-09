@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
     name := "dcim-cluster",
     organization := "com.wincom.dcim",
     version := "1.0",
-    scalaVersion := "2.11.8"
+    scalaVersion := "2.11.11"
   )
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))

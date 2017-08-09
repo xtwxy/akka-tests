@@ -3,7 +3,7 @@ lazy val root = (project in file(".")).
     name := "akka-http-test",
     organization := "com.wincom",
     version := "1.0",
-    scalaVersion := "2.11.8"
+    scalaVersion := "2.11.11"
   )
 
 

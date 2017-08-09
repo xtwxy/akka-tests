@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
     name := "shape-lib",
     organization := "shape-lib",
     version := "1.0",
-    scalaVersion := "2.11.8"
+    scalaVersion := "2.11.11"
   )
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
@@ -31,7 +31,7 @@ assemblyMergeStrategy in assembly := {
     oldStrategy(x)
 }
 
-mainClass in assembly := Some("shape.Main")
+mainClass in assembly := Some("com.wincom.shape.Main")
 assemblyJarName in assembly := "shape-lib.jar"
 
 
