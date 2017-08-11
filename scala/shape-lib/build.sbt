@@ -21,7 +21,8 @@ libraryDependencies ++= {
   val akkaVersion = "2.5.1"
   Seq(
     "com.wincom.dcim.driver"     %  "driver"                              % "1.0-SNAPSHOT",
-    "org.scalatest"             %%  "scalatest"                           % "3.0.0"       % "test"
+    "com.wincom.dcim.driver"     %  "driver-mock1"                        % "1.0-SNAPSHOT",
+    "com.wincom.dcim.driver"     %  "driver-mock2"                        % "1.0-SNAPSHOT"
   )
 }
 assemblyMergeStrategy in assembly := {

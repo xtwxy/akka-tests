@@ -1,6 +1,9 @@
-package com.wincom.dcim.driver;
+package com.wincom.dcim.test;
 
 import java.util.Map;
+
+import com.wincom.dcim.driver.Driver;
+import com.wincom.dcim.driver.DriverFactory;
 
 import scala.Option;
 

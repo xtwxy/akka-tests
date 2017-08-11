@@ -4,9 +4,14 @@ lazy val root = (project in file(".")).
   settings(
     name := "dcim-cluster",
     organization := "com.wincom.dcim",
-    version := "1.0",
+    version := "1.0.0",
     scalaVersion := "2.11.11"
   )
+  .aggregate(driver, driver_mock)
+  .dependsOn(driver, driver_mock)
+
+lazy val driver = (project in file("driver"))
+lazy val driver_mock = (project in file("driver-mock")).dependsOn(driver)
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
 
@@ -42,8 +47,9 @@ libraryDependencies ++= {
     "com.typesafe.akka"         %%  "akka-persistence-cassandra"          % "0.54",
     "com.typesafe.akka"         %%  "akka-persistence-cassandra-launcher" % "0.54" % Test,
 
+    "org.reflections"           %   "reflections"                         % "0.9.11",
     "joda-time"                 %   "joda-time"                           % "2.9.9",
-    "org.scalatest"             %%  "scalatest"                           % "3.0.0"       % "test",
+    "org.scalatest"             %%  "scalatest"                           % "3.0.1"       % "test",
 
     "com.typesafe.akka"         %%  "akka-testkit"                        % akkaVersion   % "test",
     "com.typesafe.akka"         %%  "akka-multi-node-testkit"             % akkaVersion   % "test",
@@ -61,7 +67,7 @@ assemblyMergeStrategy in assembly := {
     oldStrategy(x)
 }
 
-mainClass in assembly := Some("com.wincom.dcim.sharded.Main")
+mainClass in assembly := Some("com.wincom.dcim.da.Main")
 assemblyJarName in assembly := "dcim-cluster.jar"
 
 

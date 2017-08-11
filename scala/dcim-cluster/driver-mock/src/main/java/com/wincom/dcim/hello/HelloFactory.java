@@ -1,4 +1,4 @@
-package com.wincom.dcim.driver.mock;
+package com.wincom.dcim.hello;
 
 import java.util.Map;
 
@@ -7,15 +7,16 @@ import com.wincom.dcim.driver.DriverFactory;
 
 import scala.Option;
 
-public class DriverFactoryImpl implements DriverFactory {
-	
+public class HelloFactory implements DriverFactory {
+
 	@Override
 	public String name() {
-		return "driver-mock1";
+		return "Hello";
 	}
 
 	@Override
 	public Option<Driver> create(Map<String, String> params) {
-		return Option.apply(new DriverImpl(params));
+		return Option.apply(null);
 	}
+
 }

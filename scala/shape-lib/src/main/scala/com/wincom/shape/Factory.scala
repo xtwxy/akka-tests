@@ -9,7 +9,7 @@ class TestDriver extends Driver {
 
   }
 
-  override def received(s: Sender, m: scala.Any): Unit = {
+  override def received(s: Sender, m: Command): Unit = {
 
   }
 
@@ -19,7 +19,7 @@ class TestDriver extends Driver {
 }
 
 class TestFactory extends DriverFactory {
-  override def name = "Test"
+  override def name = "ScalaTest"
 
   override def create(params: Map[String, String]): Option[Driver] = {
     if (!params.isEmpty) Some(new TestDriver) else None
