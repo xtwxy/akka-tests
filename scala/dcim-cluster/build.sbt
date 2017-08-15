@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
     name := "dcim-cluster",
     organization := "com.wincom.dcim",
     version := "1.0.0",
-    scalaVersion := "2.11.11"
+    scalaVersion := "2.12.3"
   )
   .aggregate(driver, driver_mock)
   .dependsOn(driver, driver_mock)
