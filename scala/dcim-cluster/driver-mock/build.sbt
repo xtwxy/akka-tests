@@ -1,12 +1,9 @@
 import sbtassembly.MergeStrategy
 
-lazy val driver_mock = (project in file(".")).
-  settings(
-    name := "driver-mock",
-    organization := "com.wincom.dcim",
-    version := "1.0.0",
+    name := "driver-mock"
+    organization := "com.wincom.dcim"
+    version := "1.0.0"
     scalaVersion := "2.11.11"
-  )
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
 
@@ -23,7 +20,6 @@ fork := true
 libraryDependencies ++= {
   val akkaVersion = "2.5.1"
   Seq(
-    "com.wincom.dcim"           %%  "driver"                              % "1.0.0",
     "com.typesafe.akka"         %%  "akka-actor"                          % akkaVersion,
     "org.reflections"           %   "reflections"                         % "0.9.11"
   )
