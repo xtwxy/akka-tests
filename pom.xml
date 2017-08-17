@@ -22,6 +22,7 @@
         <module>driver-mock2</module>
         <module>hello-akka</module>
         <module>remote-actor</module>
+        <module>rest-test</module>
     </modules>
     <properties>
         <java.source.version>1.8</java.source.version>
