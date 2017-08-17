@@ -27,7 +27,9 @@ public class MainFrame extends javax.swing.JFrame {
         labelMethod = new javax.swing.JLabel();
         method = new javax.swing.JComboBox();
         labelContentType = new javax.swing.JLabel();
+        labelAcceptContentType = new javax.swing.JLabel();
         contentType = new javax.swing.JComboBox();
+        acceptContentType = new javax.swing.JComboBox();
         labelHeaders = new javax.swing.JLabel();
         headersPane = new javax.swing.JScrollPane();
         headers = new javax.swing.JTextArea();
@@ -48,7 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
-        layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
+        layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         getContentPane().setLayout(layout);
 
@@ -58,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(labelUrl, gridBagConstraints);
 
@@ -68,7 +70,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -81,7 +83,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(labelMethod, gridBagConstraints);
 
@@ -101,7 +103,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(labelContentType, gridBagConstraints);
 
@@ -113,6 +115,24 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(contentType, gridBagConstraints);
+        labelAcceptContentType.setDisplayedMnemonic('A');
+        labelAcceptContentType.setText("数据格式(A):");
+        labelAcceptContentType.setName("labelAcceptContentType");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        getContentPane().add(labelAcceptContentType, gridBagConstraints);
+
+        acceptContentType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "application/json", "application/xml", "text/html", "text/plain" }));
+        acceptContentType.setPreferredSize(new java.awt.Dimension(160, 23));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        getContentPane().add(acceptContentType, gridBagConstraints);
 
         labelHeaders.setDisplayedMnemonic('H');
         labelHeaders.setText("请求头(H):");
@@ -134,7 +154,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -160,7 +180,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -175,7 +195,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -196,7 +216,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -283,10 +303,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea body;
     private javax.swing.JScrollPane bodyPane;
     private javax.swing.JComboBox contentType;
+    private javax.swing.JComboBox acceptContentType;
     private javax.swing.JTextArea headers;
     private javax.swing.JScrollPane headersPane;
     private javax.swing.JLabel labelBody;
     private javax.swing.JLabel labelContentType;
+    private javax.swing.JLabel labelAcceptContentType;
     private javax.swing.JLabel labelHeaders;
     private javax.swing.JLabel labelMethod;
     private javax.swing.JLabel labelResponse;
