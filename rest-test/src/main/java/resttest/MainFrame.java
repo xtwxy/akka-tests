@@ -50,7 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
-        layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         getContentPane().setLayout(layout);
 
@@ -64,7 +64,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(labelUrl, gridBagConstraints);
 
-        url.setText("http://192.168.0.162:9999/resources/tables/SESSION");
+        url.setText("http://localhost:8080/");
         url.setName("url");
         url.setPreferredSize(new java.awt.Dimension(350, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -116,7 +116,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(contentType, gridBagConstraints);
         labelAcceptContentType.setDisplayedMnemonic('A');
-        labelAcceptContentType.setText("数据格式(A):");
+        labelAcceptContentType.setText("接受数据格式(A):");
         labelAcceptContentType.setName("labelAcceptContentType");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
@@ -257,6 +257,7 @@ public class MainFrame extends javax.swing.JFrame {
 			response.setText(HttpRequest.send(url.getText(), 
 					method.getSelectedItem().toString(), 
 					contentType.getSelectedItem().toString(), 
+					acceptContentType.getSelectedItem().toString(), 
 					headersMap, 
 					body.getText()
 				).toString());

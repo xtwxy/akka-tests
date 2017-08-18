@@ -15,14 +15,21 @@ import java.util.Map;
 public class HttpRequest {
 
 	public static final String DEFAULT_CHARSET = "utf-8";
-	public static String send(String requestUrl, String method, String contentType,
-		Map<String, String> headers, String body) throws Exception {
+	public static String send(
+                String requestUrl, 
+                String method, 
+                String contentType,
+                String acceptContentType,
+		Map<String, String> headers, 
+                String body
+            ) throws Exception {
 		requestUrl = requestUrl.replaceAll(" ", "%20");
 		URL url = new URL(requestUrl);
 		HttpURLConnection connection = (HttpURLConnection) url
 				.openConnection();
 	
-		connection.addRequestProperty("Accept-Content", contentType);
+		connection.addRequestProperty("Accept-Content", acceptContentType);
+		connection.addRequestProperty("Content-Type", contentType);
 	
 		for(Map.Entry<String, String> h : headers.entrySet()) {
 			connection.addRequestProperty(h.getKey(), h.getValue());
