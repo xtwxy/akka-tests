@@ -58,24 +58,29 @@ public class HttpRequest {
 		}
 		System.out.println("\n\n");
 		headerSection.append("\n\n");
-	
+
+		String responseCharset = DEFAULT_CHARSET;
+	    try {
 		String responseContentType = connection.getHeaderField("Content-Type");
 		if (responseContentType != null) {
 			int startOfEqual = responseContentType.indexOf('=');
 			if (startOfEqual != -1) {
-				responseContentType = responseContentType.substring(startOfEqual + 1);
-				responseContentType = (responseContentType == null) ? DEFAULT_CHARSET
-						: responseContentType;
+				responseCharset = responseContentType.substring(startOfEqual + 1);
+				responseCharset = (responseCharset == null) ? DEFAULT_CHARSET
+						: responseCharset;
 			} else {
-				responseContentType = DEFAULT_CHARSET;
+				responseCharset = DEFAULT_CHARSET;
 			}
 		}
+            } catch (Throwable t) {
+            }
 		if (connection.getResponseCode() < 300
 				&& connection.getResponseCode() >= 200) {
 			
-			return headerSection.toString() + asString((InputStream)connection.getContent(), responseContentType);
+			return headerSection.toString() + asString(connection.getInputStream(), responseCharset);
 		} else {
-			return headerSection.toString();
+			//return headerSection.toString();
+			return headerSection.toString() + asString(connection.getErrorStream(), responseCharset);
 		}
 	}
 	/**
