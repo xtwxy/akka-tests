@@ -30,7 +30,7 @@ public class HttpRequest {
                 .openConnection();
 
         connection.addRequestProperty("Accept-Content", acceptContentType);
-        connection.addRequestProperty("Accept-Charset", acceptContentType);
+        connection.addRequestProperty("Accept-Charset", DEFAULT_CHARSET);
         connection.addRequestProperty("Content-Type", String.format("%s; charset=%s", contentType, DEFAULT_CHARSET));
 
         for (Map.Entry<String, String> h : headers.entrySet()) {
