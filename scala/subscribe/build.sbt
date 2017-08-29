@@ -1,6 +1,6 @@
 import sbtassembly.MergeStrategy
 
-name := "scheduler"
+name := "subscribe"
 
 version := "1.0"
 
@@ -11,8 +11,10 @@ lazy val akkaVersion = "2.5.3"
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion,
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
+  "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
   "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 )
+
 
 assemblyMergeStrategy in assembly := {
   case PathList("META-INF", "io.netty.versions.properties") => MergeStrategy.rename
@@ -21,6 +23,6 @@ assemblyMergeStrategy in assembly := {
     oldStrategy(x)
 }
 
-mainClass in assembly := Some("scheduler.Main")
-assemblyJarName in assembly := "scheduler.jar"
+mainClass in assembly := Some("subscribe.Main")
+assemblyJarName in assembly := "subscribe.jar"
 
