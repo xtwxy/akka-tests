@@ -1,17 +1,22 @@
 import sbtassembly.MergeStrategy
 
 name := "publish"
-
-version := "1.0"
+organization := "wangxy"
+version := "1.0.0"
 
 scalaVersion := "2.12.2"
 
 lazy val akkaVersion = "2.5.3"
 
+publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
+
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion,
   "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
   "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
+  "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
+  "org.iq80.leveldb"  % "leveldb"  % "0.7",
+  "org.fusesource.leveldbjni"   % "leveldbjni-all"   % "1.8",
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
   "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 )
