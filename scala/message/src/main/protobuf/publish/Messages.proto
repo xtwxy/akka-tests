@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package publish;
+
+message Command {
+    required int32 counter = 1;
+    required string data = 2;
+}
+
+message Event {
+    required int32 counter = 1;
+    required string data = 2;
+}
