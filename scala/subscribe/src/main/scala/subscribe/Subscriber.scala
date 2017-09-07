@@ -3,6 +3,7 @@ package subscribe
 import akka.actor._
 import akka.cluster.pubsub.DistributedPubSub
 import akka.cluster.pubsub.DistributedPubSubMediator._
+import publish.Messages.Command
 import publish.Publisher._
 
 import scala.collection.mutable

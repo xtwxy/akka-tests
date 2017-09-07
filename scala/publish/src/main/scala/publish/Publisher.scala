@@ -9,6 +9,8 @@ import publish.Publisher._
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 import scala.language.postfixOps
+import publish.Messages.Command
+import publish.Messages.Event
 
 object Publisher {
   def props = Props(new Publisher)
@@ -16,11 +18,6 @@ object Publisher {
   def name = queueName
 
   val queueName = "publish"
-
-  case class Command(counter: Int, data: String)
-
-  case class Event(counter: Int, data: String)
-
 }
 
 class Publisher extends PersistentActor with ActorLogging {

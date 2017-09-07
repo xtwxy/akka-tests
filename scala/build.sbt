@@ -1,7 +1,6 @@
-import Dependencies._
 import sbtassembly.MergeStrategy
-import com.trueaccord.scalapb.compiler.Version.scalapbVersion
 
+lazy val akkaVersion = "2.5.3"
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
@@ -12,7 +11,8 @@ lazy val root = (project in file(".")).
     name := "scala",
     libraryDependencies ++= Seq(
       "com.trueaccord.scalapb" %% "compilerplugin" % "0.6.2",
-      scalaTest % Test
+      "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
+      "org.scalatest" %% "scalatest" % "3.0.1" % "test"
     )
   )
   .aggregate(
@@ -33,7 +33,8 @@ parallelExecution in Test := false
 fork := true
 
 lazy val message = (project in file("message"))
-lazy val publish = (project in file("publish")).dependsOn(message)
+lazy val publish = (project in file("publish"))
+    .dependsOn(message)
 lazy val subscribe = (project in file("subscribe")).dependsOn(message, publish)
 lazy val scheduler = (project in file("scheduler"))
 lazy val websocket = (project in file("websocket"))
