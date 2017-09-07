@@ -4,7 +4,7 @@ name := "scheduler"
 organization := "wangxy"
 version := "1.0"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.3"
 
 lazy val akkaVersion = "2.5.3"
 
