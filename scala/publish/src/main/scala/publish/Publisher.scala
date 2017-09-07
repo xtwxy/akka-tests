@@ -13,7 +13,7 @@ import scala.language.postfixOps
 object Publisher {
   def props = Props(new Publisher)
 
-  def name = getClass.getSimpleName
+  def name = queueName
 
   val queueName = "publish"
 
