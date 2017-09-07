@@ -24,6 +24,7 @@ lazy val root = (project in file(".")).
   )
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
+
 enablePlugins(JavaAppPackaging)
 enablePlugins(JavaServerAppPackaging)
 scriptClasspath +="../conf"

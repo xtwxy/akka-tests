@@ -9,8 +9,8 @@ import publish.Publisher._
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 import scala.language.postfixOps
-import publish.Messages.Command
-import publish.Messages.Event
+import publish.messages.Command
+import publish.messages.Event
 
 object Publisher {
   def props = Props(new Publisher)
