@@ -27,6 +27,13 @@ message DataEvent {
     required string data = 3;
 }
 
+message EndEvent {
+    option (scalapb.message).extends = "publish.message.Event";
+    optional string user = 1;
+    required int32 counter = 2;
+    required string data = 3;
+}
+
 message DataVo {
     option (scalapb.message).extends = "publish.message.ValueObject";
     required int32 counter = 1;
