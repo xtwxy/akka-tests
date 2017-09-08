@@ -1,4 +1,4 @@
-package publish
+package publish.message
 
 import akka.actor.{ActorSystem, Props}
 
