@@ -7,7 +7,6 @@ import publish.Publisher.queueName
 import publish.message._
 import subscribe.Subscriber._
 
-import scala.collection.mutable
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
@@ -21,19 +20,16 @@ object Subscriber {
 }
 
 class Subscriber extends Actor with ActorLogging {
-  var senders: mutable.Set[ActorRef] = mutable.Set()
   val mediator = DistributedPubSub(context.system).mediator
   val executionContext: ExecutionContext = context.dispatcher
 
   mediator ! Subscribe(queueName, self)
-  context.setReceiveTimeout(1 seconds)
+  context.setReceiveTimeout(10 seconds)
   override def receive: Receive = {
     case ReceiveTimeout =>
-      senders.foreach(s => {
-        val c = DataCommand(id, Some(name), 0, "Hey, anybody there?")
-        log.info(String.format("%s, %s", s.toString, c))
-        s ! c
-      })
+      log.info("Timeout. resubscribe.")
+      mediator ! Unsubscribe(queueName, self)
+      mediator ! Subscribe(queueName, self)
     case DataCommand(_, n, c: Int, d: String) =>
       log.info(String.format("%s, %s, %s", n.getOrElse("[UNIDENTIFIED]"), c.toString, d.toString))
       if(c < ttl) {
@@ -41,6 +37,5 @@ class Subscriber extends Actor with ActorLogging {
       } else {
         sender ! DataResponse(Some(name), c + 1, d)
       }
-      senders += sender
   }
 }
