@@ -20,7 +20,7 @@ object Subscriber {
 }
 
 class Subscriber extends Actor with ActorLogging {
-  val mediator = DistributedPubSub(context.system).mediator
+  var mediator = DistributedPubSub(context.system).mediator
   val executionContext: ExecutionContext = context.dispatcher
 
   mediator ! Subscribe(queueName, self)
@@ -29,6 +29,7 @@ class Subscriber extends Actor with ActorLogging {
     case ReceiveTimeout =>
       log.info("Timeout. resubscribe.")
       mediator ! Unsubscribe(queueName, self)
+      mediator = DistributedPubSub(context.system).mediator
       mediator ! Subscribe(queueName, self)
     case DataCommand(_, n, c: Int, d: String) =>
       log.info(String.format("%s, %s, %s", n.getOrElse("[UNIDENTIFIED]"), c.toString, d.toString))
