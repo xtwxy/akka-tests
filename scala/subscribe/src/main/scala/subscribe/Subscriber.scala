@@ -3,9 +3,10 @@ package subscribe
 import akka.actor._
 import akka.cluster.pubsub.DistributedPubSub
 import akka.cluster.pubsub.DistributedPubSubMediator._
+import publish.Publisher.queueName
 import publish.message._
-import subscribe.Subscriber.{id, name, ttl}
-import publish.message.Publisher._
+import subscribe.Subscriber._
+
 import scala.collection.mutable
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._

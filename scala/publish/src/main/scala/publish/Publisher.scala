@@ -1,14 +1,16 @@
-package publish.message
+package publish
 
 import akka.actor._
 import akka.cluster.pubsub.DistributedPubSub
 import akka.cluster.pubsub.DistributedPubSubMediator._
 import akka.persistence.{PersistentActor, SnapshotOffer}
+import publish.Publisher._
+import publish.message._
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 import scala.language.postfixOps
-import publish.message.Publisher._
+
 object Publisher {
   val queueName = "publish"
 
