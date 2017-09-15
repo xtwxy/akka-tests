@@ -39,7 +39,7 @@ class Subscriber extends Actor with ActorLogging {
       if (c < ttl) {
         sender ! DataCommand(id, Some(name), c + 1, d)
       } else {
-        sender ! DataResponse(Some(name), c + 1, d)
+        sender ! DataResponse(Some(name), c + 1, d, ResponseType.SUCCESS)
       }
       senders += sender
   }

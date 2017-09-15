@@ -16,6 +16,7 @@ lazy val root = (project in file(".")).
     )
   )
   .aggregate(
+    rest,
     message,
     publish,
     subscribe,
@@ -33,6 +34,7 @@ parallelExecution in Test := false
 
 fork := true
 
+lazy val rest = (project in file("rest")).dependsOn(message)
 lazy val message = (project in file("message"))
 lazy val publish = (project in file("publish"))
     .dependsOn(message)

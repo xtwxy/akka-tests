@@ -45,4 +45,5 @@ message DataResponse {
     optional string user = 1;
     required int32 counter = 2;
     required string data = 3;
+    required ResponseType responseType = 4;
 }

@@ -43,8 +43,8 @@ class Publisher extends PersistentActor with ActorLogging {
   }
 
   override def receiveCommand: Receive = {
-    case DataResponse(u, c, d) =>
-      log.info(String.format("end relay: %s, %s, %s", u.getOrElse("[UNIDENTIFIED"), c.toString, d.toString))
+    case DataResponse(u, c, d, t) =>
+      log.info(String.format("end relay: %s, %s, %s, %s", u.getOrElse("[UNIDENTIFIED"), c.toString, d.toString, t.toString))
       persist(EndEvent(u, c, d))(updateState)
     case DataCommand(_, u, c, d) =>
       log.info(String.format("relayed: %s, %s, %s", u.getOrElse("[UNIDENTIFIED]"), c.toString, d.toString))
