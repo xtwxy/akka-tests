@@ -1,3 +1,5 @@
+import com.trueaccord.scalapb.compiler.Version.scalapbVersion
+
 name := """play-scala-seed"""
 organization := "wangxy"
 
@@ -14,6 +16,8 @@ libraryDependencies ++=
     "com.typesafe.play" %% "anorm" % "2.5.3",
     "com.typesafe.play" %% "play-slick" % "3.0.2",
     "mysql" % "mysql-connector-java" % "6.0.6",
+    "com.trueaccord.scalapb" %% "compilerplugin" % scalapbVersion,
+    "com.trueaccord.scalapb" %% "scalapb-runtime" % scalapbVersion,
     "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
   )
 
@@ -31,6 +35,10 @@ assemblyMergeStrategy in assembly := {
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
 }
+
+PB.targets in Compile := Seq(
+  scalapb.gen() -> (sourceManaged in Compile).value
+)
 
 mainClass in assembly := Some("play.core.server.ProdServerStart")
 assemblyJarName in assembly := "play-scala-seed.jar"
