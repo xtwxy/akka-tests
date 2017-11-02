@@ -12,7 +12,7 @@ enum MusicType {
     POPULAR = 2;
 };
 
-message Music {
+message MusicVo {
     required int64 musicId = 1;
     optional string musicName = 2;
     optional string composer = 3;
