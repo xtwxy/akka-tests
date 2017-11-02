@@ -3,6 +3,7 @@ package test
 import anorm.SqlParser._
 import anorm._
 import apuex.music.{Music, MusicType}
+import com.trueaccord.scalapb.{GeneratedEnum, GeneratedEnumCompanion}
 import com.typesafe.config.ConfigFactory
 import play.api.Configuration
 import play.api.db.Database
@@ -23,7 +24,16 @@ object MusicUtil {
 }
 
 object EnumFormat {
+  def enumTypeFormat[E<: GeneratedEnum](companion: GeneratedEnumCompanion[E]): Format[E] = new Format[E] {
+    override def writes(o: E) = JsString(o.name)
 
+    override def reads(json: JsValue) = {
+      json match {
+        case JsString(name) => JsSuccess(companion.fromName(name).get)
+        case _ => JsError(json.toString())
+      }
+    }
+  }
 }
 
 object Main extends App {
@@ -31,17 +41,7 @@ object Main extends App {
   val app = new GuiceApplicationBuilder().configure(Configuration(config)).build()
   val database = app.injector.instanceOf[Database]
 
-  implicit val musicTypeFormat: Format[MusicType] = new Format[MusicType] {
-    override def writes(o: MusicType) = JsString(o.name)
-
-    override def reads(json: JsValue) = {
-      json match {
-        case JsString(name) => JsSuccess(MusicType.fromName(name).get)
-        case _ => JsError(json.toString())
-      }
-    }
-  }
-
+  implicit val musicTypeFormat = EnumFormat.enumTypeFormat(MusicType)
   implicit val musicFormat = Json.format[Music]
 
   val sql: SqlQuery = SQL("SELECT id, name, composer, type from music")

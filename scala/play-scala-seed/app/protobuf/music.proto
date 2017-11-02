@@ -13,8 +13,8 @@ enum MusicType {
 };
 
 message Music {
-    required int64 id = 1;
-    optional string name = 2;
+    required int64 musicId = 1;
+    optional string musicName = 2;
     optional string composer = 3;
     optional MusicType musicType = 4;
 };
