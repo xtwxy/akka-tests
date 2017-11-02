@@ -1,4 +1,4 @@
-package test
+package com.wincom.dcim.util
 
 import anorm._
 import apuex.music.{MusicType, MusicVo}

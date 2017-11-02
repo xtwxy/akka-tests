@@ -1,4 +1,4 @@
-package test
+package com.wincom.dcim.util
 
 import com.trueaccord.scalapb.{GeneratedEnum, GeneratedEnumCompanion}
 import play.api.libs.json._
