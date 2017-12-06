@@ -10,21 +10,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.wincom.dcim</groupId>
-            <artifactId>dao-mysql_2.12</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.wincom.dcim</groupId>
-            <artifactId>launcher_2.12</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.wincom.dcim</groupId>
-            <artifactId>webapp_2.12</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.12.3</version>

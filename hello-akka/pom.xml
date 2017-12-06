@@ -93,6 +93,11 @@
 		<version>0.1.50</version>
 	</dependency>
     <dependency>
+      <groupId>com.wincom.dcim</groupId>
+      <artifactId>webapp_2.12</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
