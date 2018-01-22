@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>akka.tests</groupId>
     <artifactId>akka.tests</artifactId>
@@ -37,71 +38,86 @@
       <artifactId>akka-slf4j_2.12</artifactId>
       <version>${akka.version}</version>
     </dependency>
-	<dependency>
+    <dependency>
       <groupId>com.typesafe.play</groupId>
-	  <artifactId>play-test_2.12</artifactId>
+      <artifactId>play-test_2.12</artifactId>
       <version>${play.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>ch.qos.logback</groupId>
-		<artifactId>logback-classic</artifactId>
-		<version>1.2.3</version>
-	</dependency>
-	<dependency>
-		<groupId>org.scalatest</groupId>
-		<artifactId>scalatest_2.13.0-M2</artifactId>
-		<version>3.0.4</version>
-	</dependency>
-	<dependency>
-		<groupId>com.typesafe.akka</groupId>
-		<artifactId>akka-testkit_2.12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_2.13.0-M2</artifactId>
+      <version>3.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-testkit_2.12</artifactId>
       <version>${akka.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>com.typesafe.akka</groupId>
-		<artifactId>akka-multi-node-testkit_2.12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-multi-node-testkit_2.12</artifactId>
       <version>${akka.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.scalatestplus.play</groupId>
-		<artifactId>scalatestplus-play_2.12</artifactId>
-		<version>3.1.2</version>
-	</dependency>
-	<dependency>
-		<groupId>com.trueaccord.scalapb</groupId>
-		<artifactId>compilerplugin_2.12</artifactId>
-		<version>0.6.7</version>
-	</dependency>
-	<dependency>
-		<groupId>com.trueaccord.scalapb</groupId>
-		<artifactId>scalapbc_2.12</artifactId>
-		<version>0.6.7</version>
-	</dependency>
-	<dependency>
-		<groupId>com.trueaccord.scalapb</groupId>
-		<artifactId>scalapb-runtime_2.12</artifactId>
-		<version>0.6.7</version>
-	</dependency>
-	<dependency>
-		<groupId>com.jcraft</groupId>
-		<artifactId>jsch</artifactId>
-		<version>0.1.54</version>
-	</dependency>
-		<dependency>
-		<groupId>com.jcraft</groupId>
-		<artifactId>jsch</artifactId>
-		<version>0.1.50</version>
-	</dependency>
+    </dependency>
+    <dependency>
+      <groupId>org.scalatestplus.play</groupId>
+      <artifactId>scalatestplus-play_2.12</artifactId>
+      <version>3.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.trueaccord.scalapb</groupId>
+      <artifactId>compilerplugin_2.12</artifactId>
+      <version>0.6.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.trueaccord.scalapb</groupId>
+      <artifactId>scalapbc_2.12</artifactId>
+      <version>0.6.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.trueaccord.scalapb</groupId>
+      <artifactId>scalapb-runtime_2.12</artifactId>
+      <version>0.6.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jcraft</groupId>
+      <artifactId>jsch</artifactId>
+      <version>0.1.54</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jcraft</groupId>
+      <artifactId>jsch</artifactId>
+      <version>0.1.50</version>
+    </dependency>
     <dependency>
       <groupId>com.wincom.dcim</groupId>
       <artifactId>webapp_2.12</artifactId>
       <version>1.0.0</version>
     </dependency>
     <dependency>
+      <groupId>tyrex</groupId>
+      <artifactId>tyrex</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.typesafe.play</groupId>
+      <artifactId>play-omnidoc_2.12</artifactId>
+      <version>2.6.7</version>
     </dependency>
   </dependencies>
   <build>
