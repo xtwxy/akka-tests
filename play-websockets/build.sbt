@@ -15,6 +15,7 @@ lazy val root = (project in file(".")).
     )),
     name := "play-websockets",
     libraryDependencies ++= Seq(
+      "com.lightbend.play"     %% "play-socket-io"  % "1.0.0-beta-2",
       "com.typesafe.akka"      %% "akka-testkit"    % akkaVersion     % Test,
       "org.scalatest"          %% "scalatest"       % "3.0.1"         % Test
     )
