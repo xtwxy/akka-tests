@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-server",
+  "version": "1.0.0",
+  "description": "A simple websockets server using nodejs and socket.io.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wangxy",
+  "dependencies": {
+      "socket.io": "2.0.4"
+  },
+  "license": "ISC"
+}

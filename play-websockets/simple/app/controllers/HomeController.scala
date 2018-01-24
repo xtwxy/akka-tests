@@ -14,8 +14,9 @@ import models.MyWebSocketActor
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
-
+class HomeController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer)
+  extends AbstractController(cc) {
+  private val logger = Logger(getClass)
   /**
    * Create an Action to render an HTML page.
    *
@@ -29,6 +30,7 @@ class HomeController @Inject()(cc: ControllerComponents)(implicit system: ActorS
 
   def socket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { out =>
+      logger.info("ws connection accepted.")
       MyWebSocketActor.props(out)
     }
   }
