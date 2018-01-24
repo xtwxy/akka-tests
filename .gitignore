@@ -3,6 +3,7 @@
 *.iml
 .classpath
 .project
+.g8
 .settings/
 .idea/
 bin/
