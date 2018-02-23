@@ -19,23 +19,23 @@ public class Main {
 
 			@Override
 			public void call(Object... args) {
-				socket.emit("foo", "hi");
-				System.out.println("(event => foo, message => hi) is sent.");
+				socket.emit("foo", "hello!");
+				System.out.println("[Socket.EVENT_CONNECT] (event => foo, message => hi) is sent.");
 			}
 
-		}).on("event", new Emitter.Listener() {
+		}).on("foo", new Emitter.Listener() {
 
 			@Override
 			public void call(Object... args) {
-				System.out.printf("(event => event, message => %s) is sent.\n", args);
-				socket.emit("event", "greetings!");
+				System.out.printf("(event => foo, message => %s) is received.\n", args);
+				socket.emit("foo", "how are you, foo!");
 			}
 
 		}).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
 
 			@Override
 			public void call(Object... args) {
-				System.out.printf("(event => %S, message => %s) is sent.\n", Socket.EVENT_DISCONNECT, args);
+				System.out.printf("[Socket.EVENT_DISCONNECT] (event => %S, message => %s) is received.\n", Socket.EVENT_DISCONNECT, args);
 				System.exit(0);
 			}
 
